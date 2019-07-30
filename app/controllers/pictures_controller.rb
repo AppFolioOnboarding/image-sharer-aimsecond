@@ -12,6 +12,10 @@ class PicturesController < ApplicationController
     end
   end
 
+  def show
+    @picture = Picture.find(params[:id])
+  end
+
   private
 
   def picture_params
