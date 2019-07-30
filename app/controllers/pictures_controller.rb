@@ -2,6 +2,19 @@ class PicturesController < ApplicationController
   def new; end
 
   def create
-    render plain: params[:picture].inspect
+    @picture = Picture.new(picture_params)
+    if @picture.valid?
+      @picture.save
+      redirect_to @picture
+    else
+      flash.now[:info] = 'Incorrect Image URL!'
+      render :new
+    end
+  end
+
+  private
+
+  def picture_params
+    params.require(:picture).permit(:name, :link)
   end
 end
