@@ -1,5 +1,4 @@
 class Picture < ApplicationRecord
-
   validates :name, presence: true
   validates :link, presence: true
   validate :validates_image_url
