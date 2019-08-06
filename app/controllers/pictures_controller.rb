@@ -3,12 +3,11 @@ class PicturesController < ApplicationController
 
   def create
     @picture = Picture.new(picture_params)
-    if @picture.valid?
-      @picture.save
-      redirect_to @picture
+    if @picture.save
+      redirect_to action: :show, id: @picture.id
     else
-      flash.now[:info] = 'Incorrect Image URL!'
-      render :new
+      flash.now[:info] = @picture.errors[:link].first
+      render :new, status: :unprocessable_entity
     end
   end
 
