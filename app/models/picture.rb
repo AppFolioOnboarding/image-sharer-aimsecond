@@ -1,5 +1,4 @@
 class Picture < ApplicationRecord
-  attr_accessor :name, :link
 
   validates :name, presence: true
   validates :link, presence: true
