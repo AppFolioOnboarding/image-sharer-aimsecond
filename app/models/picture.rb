@@ -8,10 +8,12 @@ class Picture < ApplicationRecord
   private
 
   def validates_image_url
-    errors.add(:link, 'Invalid URL') unless remote_image_exists?(img_url_valid?(@link))
+    url = resolve_url(link)
+    errors.add(:link, 'URL host cannot be resolved') unless url.present?
+    errors.add(:link, 'Given URL is not returning an image') unless remote_image_exists?(url)
   end
 
-  def img_url_valid?(img_url)
+  def resolve_url(img_url)
     url = URI.parse(img_url)
     return url if url.host
   rescue URI::Error
