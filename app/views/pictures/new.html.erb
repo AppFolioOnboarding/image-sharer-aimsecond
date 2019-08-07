@@ -1,0 +1,19 @@
+<%= form_with scope: :picture, url: pictures_path, local: true do |form| %>
+  <% if flash[:info] %>
+    <div class="alert alert-info"><%= flash[:info] %></div>
+  <% end %>
+
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :link %><br>
+    <%= form.text_area :link %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
