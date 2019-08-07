@@ -1,6 +1,10 @@
 class PicturesController < ApplicationController
   def new; end
 
+  def index
+    @pictures = Picture.all
+  end
+
   def create
     @picture = Picture.new(picture_params)
     if @picture.save
