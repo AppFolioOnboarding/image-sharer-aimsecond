@@ -12,6 +12,14 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form'
   end
 
+  def test_index
+    get pictures_path
+
+    assert_response :ok
+    assert_select 'h1', 'Image Uploaded'
+    assert_select 'img', Picture.all.count
+  end
+
   def test_show
     get picture_path(@picture.id)
 
