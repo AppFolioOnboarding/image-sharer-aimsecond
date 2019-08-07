@@ -2,7 +2,9 @@ require 'test_helper'
 
 class PicturesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @picture = Picture.create!(name: 'Alice', link: 'https://robohash.org/32M.png?set=set4')
+    @picture = Picture.create!(name: 'Alice',
+                               link: 'https://robohash.org/32M.png?set=set4',
+                               tag_list: 'cat, animal')
   end
 
   def test_new
@@ -29,7 +31,7 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
 
   def test_create__succeed
     assert_difference('Picture.count', 1) do
-      picture_params = { name: 'Dog', link: 'https://robohash.org/66M.png?set=set4' }
+      picture_params = { name: 'Dog', link: 'https://robohash.org/66M.png?set=set4', tag_list: 'dog, animal' }
       post pictures_path, params: { picture: picture_params }
     end
 
@@ -38,7 +40,7 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
 
   def test_create__fail_unresolvable_url
     assert_no_difference('Picture.count') do
-      picture_params = { name: 'Google', link: 'google.com' }
+      picture_params = { name: 'Google', link: 'google.com', tag_list: 'website, company' }
       post pictures_path, params: { picture: picture_params }
     end
 
@@ -48,7 +50,7 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
 
   def test_create__fail_no_remote_image
     assert_no_difference('Picture.count') do
-      picture_params = { name: 'Google', link: 'https://www.google.com' }
+      picture_params = { name: 'Google', link: 'https://www.google.com', tag_list: 'website, company' }
       post pictures_path, params: { picture: picture_params }
     end
 
