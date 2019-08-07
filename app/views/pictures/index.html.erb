@@ -6,7 +6,7 @@
     <th>Image</th>
   </tr>
 
-  <% @pictures.each do |picture| %>
+  <% @pictures.reverse_each do |picture| %>
     <tr>
       <td><%= picture.name %></td>
       <td><%= image_tag src = picture.link %></td>
