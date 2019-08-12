@@ -1,5 +1,11 @@
 <h1>Image Uploaded</h1>
 
+<h4>Search by Tag</h4>
+<%= form_tag(pictures_path, method: :get) do %>
+  <%= text_field_tag :tag_list, params[:tag_list] %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
 <table>
   <tr>
     <th>Name</th>

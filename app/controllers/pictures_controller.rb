@@ -2,7 +2,11 @@ class PicturesController < ApplicationController
   def new; end
 
   def index
-    @pictures = Picture.all
+    @pictures = if params[:tag_list].empty?
+                  Picture.all
+                else
+                  Picture.tagged_with(params[:tag_list])
+                end
   end
 
   def create
