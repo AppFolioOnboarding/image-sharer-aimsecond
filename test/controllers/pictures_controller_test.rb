@@ -4,7 +4,7 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @picture = Picture.create!(name: 'Alice',
                                link: 'https://robohash.org/32M.png?set=set4',
-                               tag_list: 'cat, animal')
+                               tag_list: 'cat, animal, existing_tag')
   end
 
   def test_new
@@ -19,6 +19,36 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     assert_select 'h1', 'Image Uploaded'
+    assert_select 'img', Picture.all.count
+  end
+
+  def test_index__filtered_by_existing_tag
+    get '/tagged?tag=existing_tag'
+
+    assert_response :ok
+    assert_select 'img', 1
+
+    Picture.create!(name: 'Alice_2',
+                    link: 'https://robohash.org/64M.png?set=set4',
+                    tag_list: 'cat, animal, existing_tag')
+
+    get '/tagged?tag=existing_tag'
+
+    assert_response :ok
+    assert_select 'img', 2
+  end
+
+  def test_index__filtered_by_non_existing_tag
+    get '/tagged?tag=no_such_tag'
+
+    assert_response :ok
+    assert_select 'img', 0
+  end
+
+  def test_index__filtered_by_empty_tag
+    get '/tagged?tag='
+
+    assert_response :ok
     assert_select 'img', Picture.all.count
   end
 
