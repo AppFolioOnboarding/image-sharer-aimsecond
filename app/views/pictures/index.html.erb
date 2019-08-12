@@ -26,6 +26,7 @@
         </div>
       </td>
       <td><%= link_to 'Show', picture_path(picture) %></td>
+      <td> <%= render partial: 'destroy_btn', locals: {p: picture} %></td>
     </tr>
   <% end %>
 </table>
