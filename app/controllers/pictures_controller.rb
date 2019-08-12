@@ -2,10 +2,10 @@ class PicturesController < ApplicationController
   def new; end
 
   def index
-    @pictures = if params[:tag_list].empty?
+    @pictures = if params[:tag].blank?
                   Picture.all
                 else
-                  Picture.tagged_with(params[:tag_list])
+                  Picture.tagged_with(params[:tag])
                 end
   end
 
