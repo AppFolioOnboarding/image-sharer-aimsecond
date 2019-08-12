@@ -1,4 +1,5 @@
 class Picture < ApplicationRecord
+  acts_as_taggable_on :tags
   validates :name, presence: true
   validates :link, presence: true
   validate :validates_image_url
