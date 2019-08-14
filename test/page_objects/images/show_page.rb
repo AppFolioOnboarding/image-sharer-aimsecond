@@ -6,6 +6,7 @@ module PageObjects
       element :tag_list
       element :destroy_button, locator: '.js-destroy-btn'
       element :back_button, locator: '.js-back-btn'
+
       def image_url
         node.find('img')[:src]
       end

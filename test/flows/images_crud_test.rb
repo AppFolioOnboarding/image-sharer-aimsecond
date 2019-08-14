@@ -61,11 +61,11 @@ class ImagesCrudTest < FlowTestCase
   test 'view images associated with a tag' do
     puppy_url1 = 'http://www.pawderosa.com/images/puppies.jpg'
     puppy_url2 = 'http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg'
-    cat_url = 'http://www.ugly-cat.com/ugly-cats/uglycat041.jpg'
-    Image.create!([
-      { url: puppy_url1, tag_list: 'superman, cute' },
-      { url: puppy_url2, tag_list: 'cute, puppy' },
-      { url: cat_url, tag_list: 'cat, ugly' }
+    cat_url = 'http://www.ugly-cat.com/wp-content/uploads/2017/06/best-juicer-768x576.jpeg'
+    Picture.create!([
+      { name: 'pic_1', link: puppy_url1, tag_list: 'superman, cute' },
+      { name: 'pic_2', link: puppy_url2, tag_list: 'cute, puppy' },
+      { name: 'pic_3', link: cat_url, tag_list: 'cat, ugly' }
     ])
 
     images_index_page = PageObjects::Images::IndexPage.visit
@@ -73,12 +73,12 @@ class ImagesCrudTest < FlowTestCase
       assert images_index_page.showing_image?(url: url)
     end
 
-    images_index_page = images_index_page.images[1].click_tag!('cute')
+    images_index_page = images_index_page.pictures[1].click_tag!('cute')
 
-    assert_equal 2, images_index_page.images.count
+    assert_equal 2, images_index_page.pictures.count
     assert_not images_index_page.showing_image?(url: cat_url)
 
     images_index_page = images_index_page.clear_tag_filter!
-    assert_equal 3, images_index_page.images.count
+    assert_equal 3, images_index_page.pictures.count
   end
 end

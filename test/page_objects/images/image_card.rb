@@ -20,7 +20,10 @@ module PageObjects
       end
 
       def click_tag!(tag_name)
-        # TODO
+        target_tag = tag_list.detect { |tag| tag.text == tag_name }
+        target_tag.node.click
+        stale!
+        window.change_to(IndexPage)
       end
     end
   end
