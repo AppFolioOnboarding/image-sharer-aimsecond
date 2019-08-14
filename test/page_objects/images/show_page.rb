@@ -1,14 +1,17 @@
 module PageObjects
   module Images
     class ShowPage < PageObjects::Document
-      path :image
+      path :picture
 
+      element :tag_list
+      element :destroy_button, locator: '.js-destroy-btn'
+      element :back_button, locator: '.js-back-btn'
       def image_url
-        # TODO
+        node.find('img')[:src]
       end
 
       def tags
-        # TODO
+        tag_list.text.split(' ')
       end
 
       def delete
@@ -22,7 +25,9 @@ module PageObjects
       end
 
       def go_back_to_index!
-        # TODO
+        back_button.node.click
+        stale!
+        window.change_to(IndexPage)
       end
     end
   end

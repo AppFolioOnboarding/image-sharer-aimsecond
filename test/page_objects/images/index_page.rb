@@ -1,21 +1,25 @@
+require File.expand_path(__dir__) + '/image_card.rb'
 module PageObjects
   module Images
     class IndexPage < PageObjects::Document
-      path :images
+      path :pictures
 
-      collection :images, locator: '#TODO', item_locator: '#TODO', contains: ImageCard do
+      collection :pictures, locator: '.js-images', item_locator: '.js-image', contains: ImageCard do
         def view!
           # TODO
         end
       end
 
       def add_new_image!
-        node.click_on('New Image')
+        node.click_on('Add New Image')
         window.change_to(NewPage)
       end
 
-      def showing_image?(url:, tags: nil)
-        # TODO
+      def showing_image?(url: nil, tags: nil)
+        pictures.each do |picture|
+          return true if picture.url == url && (tags.nil? || picture.tags == tags)
+        end
+        false
       end
 
       def clear_tag_filter!

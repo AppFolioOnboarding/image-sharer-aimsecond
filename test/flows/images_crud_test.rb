@@ -8,16 +8,17 @@ class ImagesCrudTest < FlowTestCase
 
     tags = %w[foo bar]
     new_image_page = new_image_page.create_image!(
+      name: 'test_pic',
       url: 'invalid',
       tags: tags.join(', ')
     ).as_a(PageObjects::Images::NewPage)
-    assert_equal 'must be a valid URL', new_image_page.url.error_message
+    assert_equal 'URL host cannot be resolved', new_image_page.flash_message(:info)
 
     image_url = 'https://media3.giphy.com/media/EldfH1VJdbrwY/200.gif'
-    new_image_page.url.set(image_url)
+    new_image_page.link.set(image_url)
 
     image_show_page = new_image_page.create_image!
-    assert_equal 'You have successfully added an image.', image_show_page.flash_message(:success)
+    assert_equal 'You have successfully added an image.', image_show_page.flash_message(:info)
 
     assert_equal image_url, image_show_page.image_url
     assert_equal tags, image_show_page.tags
@@ -28,18 +29,18 @@ class ImagesCrudTest < FlowTestCase
 
   test 'delete an image' do
     cute_puppy_url = 'http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg'
-    ugly_cat_url = 'http://www.ugly-cat.com/ugly-cats/uglycat041.jpg'
-    Image.create!([
-      { url: cute_puppy_url, tag_list: 'puppy, cute' },
-      { url: ugly_cat_url, tag_list: 'cat, ugly' }
+    ugly_cat_url = 'http://www.ugly-cat.com/wp-content/uploads/2017/06/best-juicer-768x576.jpeg'
+    Picture.create!([
+      { name: 'pic_1', link: cute_puppy_url, tag_list: 'puppy, cute' },
+      { name: 'pic_2', link: ugly_cat_url, tag_list: 'cat, ugly' }
     ])
 
     images_index_page = PageObjects::Images::IndexPage.visit
-    assert_equal 2, images_index_page.images.count
+    assert_equal 2, images_index_page.pictures.count
     assert images_index_page.showing_image?(url: ugly_cat_url)
     assert images_index_page.showing_image?(url: cute_puppy_url)
 
-    image_to_delete = images_index_page.images.find do |image|
+    image_to_delete = images_index_page.pictures.find do |image|
       image.url == ugly_cat_url
     end
     image_show_page = image_to_delete.view!
