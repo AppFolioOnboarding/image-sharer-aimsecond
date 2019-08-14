@@ -53,7 +53,7 @@ class ImagesCrudTest < FlowTestCase
     images_index_page = image_show_page.delete_and_confirm!
     assert_equal 'You have successfully deleted the image.', images_index_page.flash_message(:success)
 
-    assert_equal 1, images_index_page.images.count
+    assert_equal 1, images_index_page.pictures.count
     assert_not images_index_page.showing_image?(url: ugly_cat_url)
     assert images_index_page.showing_image?(url: cute_puppy_url)
   end

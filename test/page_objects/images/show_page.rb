@@ -15,12 +15,14 @@ module PageObjects
       end
 
       def delete
-        # TODO
+        destroy_button.node.click
         yield node.driver.browser.switch_to.alert
       end
 
       def delete_and_confirm!
-        # TODO
+        destroy_button.node.click
+        alert = node.driver.browser.switch_to.alert
+        alert.accept
         window.change_to(IndexPage)
       end
 

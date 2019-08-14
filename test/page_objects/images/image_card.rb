@@ -5,6 +5,8 @@ module PageObjects
         element :tag
       end
 
+      element :show_button, locator: '.js-show-btn'
+
       def url
         node.find('img')[:src]
       end

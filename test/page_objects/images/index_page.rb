@@ -6,7 +6,9 @@ module PageObjects
 
       collection :pictures, locator: '.js-images', item_locator: '.js-image', contains: ImageCard do
         def view!
-          # TODO
+          show_button.node.click
+          stale!
+          window.change_to(ShowPage)
         end
       end
 
