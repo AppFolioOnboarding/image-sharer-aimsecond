@@ -56,7 +56,7 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
     get picture_path(@picture.id)
 
     assert_response :ok
-    assert_select 'p', "Name:\n  Alice"
+    assert_select '#name', 'Alice'
   end
 
   def test_create__succeed

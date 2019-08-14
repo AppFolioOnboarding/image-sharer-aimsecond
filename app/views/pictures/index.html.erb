@@ -1,12 +1,15 @@
 <h1>Image Uploaded</h1>
 
+<div><%= link_to 'Add New Image', new_picture_path %></div>
+<div><%= link_to 'Show All Images', pictures_path %></div>
+
 <h4>Search by Tag</h4>
 <%= form_tag(tagged_path, method: :get) do %>
   <%= text_field_tag :tag, params[:tag] %>
   <%= submit_tag 'Search' %>
 <% end %>
 
-<table>
+<table class='js-images'>
   <tr>
     <th>Name</th>
     <th>Image</th>
@@ -14,16 +17,16 @@
   </tr>
 
   <% @pictures.reverse_each do |picture| %>
-    <tr>
-      <td><%= picture.name %></td>
-      <td><%= image_tag src = picture.link %></td>
+    <tr class='js-image'>
+      <td class = 'js-image-name'><%= picture.name %></td>
+      <td class = 'js-image-link'><%= image_tag src = picture.link %></td>
       <td>
-        <div>
-          <span class = 'js_tag'>Tags: </span>
+        <%= tag.div class:'js-image-tag_list' do %>
+          <span>Tags: </span>
           <% picture.tag_list.each do |tag| %>
-            <%= link_to tag, tagged_path(tag: tag) %>
+            <%= link_to tag, tagged_path(tag: tag), class: 'js-image-tag' %>
           <% end %>
-        </div>
+        <% end %>
       </td>
       <td><%= link_to 'Show', picture_path(picture) %></td>
       <td> <%= render partial: 'destroy_btn', locals: {p: picture} %></td>

@@ -13,6 +13,7 @@ class PicturesController < ApplicationController
     @picture = Picture.new(picture_params)
     if @picture.save
       redirect_to action: :show, id: @picture.id
+      flash[:info] = 'You have successfully added an image.'
     else
       flash.now[:info] = @picture.errors[:link].first
       render :new, status: :unprocessable_entity

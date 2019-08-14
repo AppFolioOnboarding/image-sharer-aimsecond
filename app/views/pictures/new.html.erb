@@ -1,24 +1,20 @@
-<%= form_with scope: :picture, url: pictures_path, local: true do |form| %>
-  <% if flash[:info] %>
-    <div class="alert alert-info"><%= flash[:info] %></div>
-  <% end %>
-
+<%= form_with scope: :picture, url: pictures_path, local: true, id: :picture do |form| %>
   <p>
     <%= form.label :name %><br>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, id: :picture_name %>
   </p>
 
   <p>
     <%= form.label :link %><br>
-    <%= form.text_area :link %>
+    <%= form.text_area :link, id: :picture_link %>
   </p>
 
   <p>
     <%= form.label :tag_list %><br>
-    <%= form.text_area :tag_list %>
+    <%= form.text_area :tag_list, id: :picture_tag_list %>
   </p>
 
   <p>
-    <%= form.submit %>
+    <%= form.submit%>
   </p>
 <% end %>

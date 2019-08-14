@@ -1,19 +1,25 @@
 <p>
   <strong>Name:</strong>
-  <%= @picture.name %>
+  <div id='name'><%= @picture.name %></div>
 </p>
 
 <p>
-  <%= image_tag src=@picture.link %>
+  <div id='image'><%= image_tag src=@picture.link %></div>
 </p>
 
 <div>
   <strong>Tags:</strong>
-  <% @picture.tag_list.each do |tag| %>
-    <%= link_to tag, tagged_path(tag: tag) %>
-  <% end %>
-</div>
+  <div id='tag_list'>
+    <% @picture.tag_list.each do |tag| %>
+      <%= link_to tag, tagged_path(tag: tag) %>
+    <% end %>
+  </div>
+</div><br>
 
 <p>
   <%= render partial: 'destroy_btn', locals: {p: @picture} %>
+</p>
+
+<p>
+  <%= link_to '⏎Back', pictures_path, method: :get, class: 'js-back-btn'%>
 </p>
