@@ -26,8 +26,7 @@ class PicturesController < ApplicationController
 
   def destroy
     @picture = Picture.find(params[:id])
-    @picture&.destroy
-
+    flash[:success] = 'You have successfully deleted the image.' if @picture&.destroy
     redirect_to pictures_path
   end
 

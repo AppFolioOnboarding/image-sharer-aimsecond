@@ -28,7 +28,7 @@
           <% end %>
         <% end %>
       </td>
-      <td><%= link_to 'Show', picture_path(picture) %></td>
+      <td><%= link_to 'Show', picture_path(picture), class: 'js-show-btn'%></td>
       <td> <%= render partial: 'destroy_btn', locals: {p: picture} %></td>
     </tr>
   <% end %>
