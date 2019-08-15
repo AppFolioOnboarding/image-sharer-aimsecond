@@ -56,7 +56,7 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
     get picture_path(@picture.id)
 
     assert_response :ok
-    assert_select 'p', "Name:\n  Alice"
+    assert_select '#name', 'Alice'
   end
 
   def test_create__succeed
@@ -86,5 +86,13 @@ class PicturesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert_equal 'Given URL is not returning an image', flash[:info]
+  end
+
+  def test_destroy
+    assert_difference('Picture.count', -1) do
+      delete picture_path(@picture.id)
+    end
+
+    assert_redirected_to pictures_path
   end
 end
